@@ -153,3 +153,21 @@
         if (!dateInput) return;
         const date = new Date(dateInput);
         const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
+        let s = (y + m + d).toString().split('').reduce((a, b) => a + parseInt(b), 0);
+        while (s > 9 && ![11, 22, 33].includes(s)) {
+            s = s.toString().split('').reduce((a, b) => a + parseInt(b), 0);
+        }
+        const zodiac = getZodiac(m, d);
+        const trait = starTraits[zodiac];
+        const msg = numMsgs[s];
+        document.getElementById('message-content').innerHTML = `
+            貴方の内側には、<strong>${trait}</strong>という気質が静かに、けれど確かに息づいています。<br><br>
+            その性質が、日々の暮らしの中で<strong>${msg}</strong>となって現れるとき、周囲や自分自身に心地よいリズムが生まれるようです。<br><br>
+            ふとした瞬間に、この自分らしいエネルギーの巡りを感じてみてください。それは貴方がこれまでの人生で丁寧に育んできた、最も信頼できる感覚なのです。
+        `;
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
