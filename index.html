@@ -27,71 +27,78 @@
             width: 95%; max-width: 600px; text-align: center; border: none; position: relative;
         }
 
+        /* 主題のデザイン：スタイルそのままでサイズアップ */
         h1 { 
-            font-family: 'Cinzel', serif; font-size: 32px; letter-spacing: 12px; margin-bottom: 8px;
-            color: #f1e7c0; text-shadow: 0 0 15px rgba(241, 231, 192, 0.4);
-            text-transform: uppercase; font-weight: 400;
+            font-family: 'Cinzel', serif; 
+            font-size: 42px; /* 32pxから大幅にアップ */
+            letter-spacing: 16px; /* 間隔も広げてゆったりと */
+            margin-bottom: 12px;
+            color: #f1e7c0; 
+            text-shadow: 0 0 20px rgba(241, 231, 192, 0.6);
+            text-transform: uppercase; 
+            font-weight: 400;
         }
 
         .subtitle { 
-            font-size: 10px; letter-spacing: 6px; color: #f1e7c0; 
-            margin-bottom: 50px; text-transform: uppercase; opacity: 0.7;
+            font-size: 12px; letter-spacing: 8px; color: #f1e7c0; 
+            margin-bottom: 60px; text-transform: uppercase; opacity: 0.7;
         }
 
-        /* --- ここを再調整：細いけれど「見える」太さに --- */
+        /* ガイド：細いまま「大きく・光らせて」見やすく */
         .input-label {
             font-family: 'Cinzel', serif;
-            font-size: 13px; /* 少しサイズをアップ */
-            letter-spacing: 4px; /* 間隔を少し詰め、文字の密度を上げる */
+            font-size: 16px; /* 13pxから大きくして視認性アップ */
+            letter-spacing: 6px;
             color: #f1e7c0; 
-            margin-bottom: 15px; 
+            margin-bottom: 20px; 
             text-transform: uppercase;
-            font-weight: 400 !important; /* 極細(300)から標準(400)へ */
+            font-weight: 400;
             opacity: 1;
-            text-shadow: 0 0 8px rgba(241, 231, 192, 0.5); /* 視認性を助ける光 */
+            /* 影を強めて、背景から浮き立たせる */
+            text-shadow: 0 0 12px rgba(241, 231, 192, 0.8), 0 0 2px rgba(0, 0, 0, 0.5);
         }
 
         input[type="date"] { 
-            background: rgba(255, 255, 255, 0.04); 
+            background: rgba(255, 255, 255, 0.05); 
             border: 1px solid rgba(241, 231, 192, 0.3);
             color: #ffffff; 
-            padding: 12px; width: 80%; max-width: 260px;
+            padding: 14px; width: 80%; max-width: 280px;
             font-size: 16px; 
             border-radius: 0; outline: none;
             font-family: 'Quicksand', sans-serif; 
             text-align: center;
-            font-weight: 400; /* 入力欄の中も少しだけ太く */
+            font-weight: 300;
             -webkit-appearance: none;
             appearance: none;
         }
         
         button { 
-            margin-top: 40px; background: transparent;
+            margin-top: 45px; background: transparent;
             color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.4); 
-            padding: 14px 50px; cursor: pointer; letter-spacing: 5px; 
-            font-size: 11px; font-weight: 400;
+            padding: 16px 60px; cursor: pointer; letter-spacing: 6px; 
+            font-size: 12px; font-weight: 300;
             transition: 0.5s; text-transform: uppercase;
             border-radius: 0;
             -webkit-appearance: none;
         }
         button:hover { background: rgba(241, 231, 192, 0.15); border-color: #f1e7c0; }
 
-        .result-area { margin-top: 50px; text-align: center; display: none; }
+        .result-area { margin-top: 60px; text-align: center; display: none; }
 
         .message-box { 
-            line-height: 2.6; font-size: 15px; 
+            line-height: 2.8; font-size: 16px; 
             color: rgba(255, 255, 255, 0.85); 
             background: rgba(0, 0, 0, 0.2); 
             padding: 40px; border-radius: 0;
             border-top: 1px solid rgba(241, 231, 192, 0.15);
             border-bottom: 1px solid rgba(241, 231, 192, 0.15);
-            font-weight: 400;
+            font-weight: 300;
         }
 
         .author {
-            margin-top: 60px; font-size: 10px; letter-spacing: 3px;
+            margin-top: 80px; font-size: 11px; letter-spacing: 4px;
             color: rgba(241, 231, 192, 0.4); text-align: center;
-            font-weight: 400;
+            font-weight: 300;
         }
     </style>
 </head>
@@ -134,4 +141,12 @@
         const date = new Date(dateInput);
         const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
         let s = (y + m + d).toString().split('').reduce((a, b) => a + parseInt(b), 0);
-        while (s > 9 && ![11, 22, 33].includes(s)) { s = s.toString().split('').reduce((a,
+        while (s > 9 && ![11, 22, 33].includes(s)) { s = s.toString().split('').reduce((a, b) => a + parseInt(b), 0); }
+        const zodiac = getZodiac(m, d);
+        document.getElementById('message-content').innerHTML = `貴方の内側には、<strong>${starTraits[zodiac]}</strong>という気質が静かに、けれど確かに息づいています。<br><br>その性質が、日々の暮らしの中で<strong>${numMsgs[s]}</strong>となって現れるとき、周囲や自分自身に心地よいリズムが生まれるようです。<br><br>ふとした瞬間に、この自分らしいエネルギーの巡りを感じてみてください。`;
+        document.getElementById('result').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
