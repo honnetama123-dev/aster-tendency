@@ -9,77 +9,74 @@
         body { 
             background: #020617 url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=2048') no-repeat center center fixed;
             background-size: cover;
-            color: rgba(255, 255, 255, 0.9);
+            /* 基本の文字色を少しだけ透明な白に */
+            color: rgba(255, 255, 255, 0.85); 
             font-family: 'Quicksand', 'Hiragino Sans', sans-serif;
             display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
         }
 
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(30, 58, 138, 0.1) 0%, rgba(2, 6, 23, 0.85) 100%);
+            background: radial-gradient(circle at center, rgba(30, 58, 138, 0.1) 0%, rgba(2, 6, 23, 0.7) 100%);
             pointer-events: none; z-index: -1;
         }
 
         .card { 
-            background: rgba(10, 15, 30, 0.65); 
-            backdrop-filter: blur(25px);
-            padding: 60px 45px; border-radius: 2px; 
-            width: 95%; max-width: 550px; text-align: center; 
-            box-shadow: 0 0 80px rgba(0, 0, 0, 0.9);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: transparent; 
+            backdrop-filter: none;
+            padding: 40px 20px;
+            width: 95%; max-width: 600px; text-align: center; 
+            border: none;
             position: relative;
         }
 
         h1 { 
             font-family: 'Cinzel', serif;
-            font-size: 30px; letter-spacing: 12px; margin-bottom: 8px;
+            font-size: 32px; letter-spacing: 12px; margin-bottom: 8px;
             color: #f1e7c0;
-            text-shadow: 0 0 10px rgba(241, 231, 192, 0.3);
+            text-shadow: 0 0 15px rgba(241, 231, 192, 0.5);
             text-transform: uppercase; font-weight: 400;
         }
 
         .subtitle { 
-            font-size: 10px; letter-spacing: 6px; color: #f1e7c0; 
-            margin-bottom: 50px; text-transform: uppercase; opacity: 0.6;
+            font-size: 11px; letter-spacing: 6px; color: #f1e7c0; 
+            margin-bottom: 50px; text-transform: uppercase; opacity: 0.8;
         }
 
         input[type="date"] { 
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(241, 231, 192, 0.2);
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
             color: #fff; padding: 15px; width: 80%; max-width: 280px;
-            font-size: 17px; border-radius: 0; outline: none; transition: 0.4s;
+            font-size: 17px; border-radius: 4px; outline: none; transition: 0.4s;
             font-family: 'Quicksand', sans-serif; text-align: center;
         }
 
         button { 
             margin-top: 35px; background: transparent;
-            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.4); 
+            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.6); 
             padding: 16px 60px; cursor: pointer; letter-spacing: 6px; 
             font-size: 12px; font-weight: bold;
             transition: all 0.5s; text-transform: uppercase;
         }
-        button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; }
+        button:hover { background: rgba(241, 231, 192, 0.15); border-color: #f1e7c0; }
 
-        .result-area { margin-top: 55px; text-align: left; display: none; animation: fadeIn 1.8s ease; }
+        .result-area { margin-top: 55px; text-align: center; display: none; animation: fadeIn 2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* --- 修正箇所：文字色を完全な白に統一 --- */
         .message-box { 
-            line-height: 2.4; font-size: 15px; 
-            color: #ffffff !important; /* 文章全体を白に */
-            background: rgba(0, 0, 0, 0.2); padding: 40px; 
-            border-top: 1px solid rgba(241, 231, 192, 0.1);
-            border-bottom: 1px solid rgba(241, 231, 192, 0.1);
+            line-height: 2.5; font-size: 16px; 
+            /* 結果の文字色を少し透明な白に統一 */
+            color: rgba(255, 255, 255, 0.85) !important; 
+            background: rgba(0, 0, 0, 0.25); 
+            padding: 40px; 
+            border-radius: 8px;
         }
 
-        .message-box strong { 
-            color: #ffffff !important; /* 太字部分も強制的に白に */
-            font-weight: 500; 
-        }
-        /* --------------------------------------- */
+        /* 太字部分も同じ透明度の白に揃える */
+        .message-box strong { color: rgba(255, 255, 255, 0.9) !important; font-weight: 500; }
 
         .author {
-            margin-top: 40px; font-size: 11px; letter-spacing: 3px;
-            color: rgba(241, 231, 192, 0.4); text-align: center;
+            margin-top: 60px; font-size: 12px; letter-spacing: 4px;
+            color: rgba(241, 231, 192, 0.5); text-align: center;
         }
     </style>
 </head>
@@ -123,50 +120,4 @@
 
     const numMsgs = {
         1: "「まずは自分が動いてみる」という潔い強さ",
-        2: "周囲の温度を察知し、さりげなく潤滑油になれる大人の配慮",
-        3: "日常の中に面白さを見つける天才的な遊び心",
-        4: "丁寧な仕事と約束を守る積み重ね、その揺るぎない安定感",
-        5: "変化を軽やかに乗りこなす、自由で軽快なフットワーク",
-        6: "淹れたてのコーヒーのように、場を温める責任感と配慮",
-        7: "一人の時間を贅沢に使える、流行に流されない本質的な視点",
-        8: "目標へ着実に進むタフさと、周囲も引き上げる懐の深さ",
-        9: "多くの経験から得た、全てを笑って流せる大人の余裕",
-        11: "理屈を超えて真実を突く、鋭くも繊細な直感",
-        22: "理想をただの夢に終わらせない、着実で力強い実行力",
-        33: "既成概念に囚われない、誰にも真似できない視点と愛"
-    };
-
-    function getZodiac(month, day) {
-        const signs = ["山羊座","水瓶座","魚座","牡羊座","牡牛座","双子座","蟹座","獅子座","乙女座","天秤座","蠍座","射手座","山羊座"];
-        const bounds = [19, 18, 20, 19, 20, 21, 22, 22, 22, 23, 22, 21];
-        return day > bounds[month-1] ? signs[month] : signs[month-1];
-    }
-
-    function analyze() {
-        const dateInput = document.getElementById('birthdate').value;
-        if (!dateInput) return;
-
-        const date = new Date(dateInput);
-        const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
-
-        let s = (y + m + d).toString().split('').reduce((a, b) => a + parseInt(b), 0);
-        while (s > 9 && ![11, 22, 33].includes(s)) {
-            s = s.toString().split('').reduce((a, b) => a + parseInt(b), 0);
-        }
-
-        const zodiac = getZodiac(m, d);
-        const trait = starTraits[zodiac];
-        const msg = numMsgs[s];
-
-        document.getElementById('message-content').innerHTML = `
-            貴方の内側には、<strong>${trait}</strong>という気質が静かに、けれど確かに息づいています。<br><br>
-            その性質が、日々の暮らしの中で<strong>${msg}</strong>となって現れるとき、周囲や自分自身に心地よいリズムが生まれるようです。<br><br>
-            ふとした瞬間に、この自分らしいエネルギーの巡りを感じてみてください。それは貴方がこれまでの人生で丁寧に育んできた、最も信頼できる感覚なのです。
-        `;
-
-        document.getElementById('result').style.display = 'block';
-    }
-</script>
-
-</body>
-</html>
+        2:
