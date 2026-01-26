@@ -7,17 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
     <style>
         body { 
+            /* 背景画像をより明るく、宇宙を強調 */
             background: #020617 url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=2048') no-repeat center center fixed;
             background-size: cover;
-            /* 基本の文字色を少しだけ透明な白に */
             color: rgba(255, 255, 255, 0.85); 
             font-family: 'Quicksand', 'Hiragino Sans', sans-serif;
             display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
         }
 
+        /* ここで背景の「透け具合」を調整しています */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(30, 58, 138, 0.1) 0%, rgba(2, 6, 23, 0.7) 100%);
+            /* グラデーションの透明度を 0.7 から 0.4 へ下げて、宇宙をよく見せています */
+            background: radial-gradient(circle at center, rgba(30, 58, 138, 0.05) 0%, rgba(2, 6, 23, 0.4) 100%);
             pointer-events: none; z-index: -1;
         }
 
@@ -44,7 +46,8 @@
         }
 
         input[type="date"] { 
-            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
+            /* 入力欄の背景もさらに薄くして、宇宙を透かせています */
+            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff; padding: 15px; width: 80%; max-width: 280px;
             font-size: 17px; border-radius: 4px; outline: none; transition: 0.4s;
             font-family: 'Quicksand', sans-serif; text-align: center;
@@ -52,31 +55,30 @@
 
         button { 
             margin-top: 35px; background: transparent;
-            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.6); 
+            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.5); 
             padding: 16px 60px; cursor: pointer; letter-spacing: 6px; 
             font-size: 12px; font-weight: bold;
             transition: all 0.5s; text-transform: uppercase;
         }
-        button:hover { background: rgba(241, 231, 192, 0.15); border-color: #f1e7c0; }
+        button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; }
 
         .result-area { margin-top: 55px; text-align: center; display: none; animation: fadeIn 2s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .message-box { 
             line-height: 2.5; font-size: 16px; 
-            /* 結果の文字色を少し透明な白に統一 */
             color: rgba(255, 255, 255, 0.85) !important; 
-            background: rgba(0, 0, 0, 0.25); 
+            /* 黒い影を極限まで薄くし、宇宙が透けて見えるように */
+            background: rgba(0, 0, 0, 0.15); 
             padding: 40px; 
             border-radius: 8px;
         }
 
-        /* 太字部分も同じ透明度の白に揃える */
         .message-box strong { color: rgba(255, 255, 255, 0.9) !important; font-weight: 500; }
 
         .author {
             margin-top: 60px; font-size: 12px; letter-spacing: 4px;
-            color: rgba(241, 231, 192, 0.5); text-align: center;
+            color: rgba(241, 231, 192, 0.4); text-align: center;
         }
     </style>
 </head>
@@ -107,17 +109,4 @@
         "牡羊座": "真っ直ぐな情熱と、思い立ったらすぐ行動する瞬発力",
         "牡牛座": "五感で味わう心地よさを大切にする、丁寧な暮らしぶり",
         "双子座": "好奇心が旺盛で、重苦しい空気をさらりと変える軽やかさ",
-        "蟹座": "身近な人への深い慈しみと、場を温める包容力",
-        "獅子座": "自分らしくあることを誇りとし、周囲に活力を与える存在感",
-        "乙女座": "細部まで目が行き届く繊細さと、物事を整える几帳面さ",
-        "天秤座": "全体の調和を読み取り、スマートに立ち回れるバランス感覚",
-        "蠍座": "一つのことを深く突き詰め、本質を見抜こうとする洞察力",
-        "射手座": "束縛を嫌い、常に広い世界を見つめる自由な精神",
-        "山羊座": "着実に目標を達成していく、ストイックで誠実な歩み",
-        "水瓶座": "常識に縛られない独創性と、誰に対してもフラットな視点",
-        "魚座": "言葉にできない機微を感じ取り、優しく寄り添う感受性"
-    };
-
-    const numMsgs = {
-        1: "「まずは自分が動いてみる」という潔い強さ",
-        2:
+        "蟹座": "身近な人への深い慈
