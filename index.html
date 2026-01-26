@@ -33,7 +33,7 @@
         h1 { 
             font-family: 'Cinzel', serif;
             font-size: 30px; letter-spacing: 12px; margin-bottom: 8px;
-            color: #f1e7c0; /* 落ち着いたシャンパンゴールド */
+            color: #f1e7c0;
             text-shadow: 0 0 10px rgba(241, 231, 192, 0.3);
             text-transform: uppercase; font-weight: 400;
         }
@@ -49,7 +49,6 @@
             font-size: 17px; border-radius: 0; outline: none; transition: 0.4s;
             font-family: 'Quicksand', sans-serif; text-align: center;
         }
-        input[type="date"]:focus { border-color: rgba(241, 231, 192, 0.5); background: rgba(255, 255, 255, 0.07); }
 
         button { 
             margin-top: 35px; background: transparent;
@@ -58,28 +57,25 @@
             font-size: 12px; font-weight: bold;
             transition: all 0.5s; text-transform: uppercase;
         }
-        button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; box-shadow: 0 0 20px rgba(241, 231, 192, 0.15); }
+        button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; }
 
         .result-area { margin-top: 55px; text-align: left; display: none; animation: fadeIn 1.8s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .message-box { 
-            line-height: 2.8; font-size: 15px; color: rgba(255, 255, 255, 0.85);
+            line-height: 2.4; font-size: 15px; color: rgba(255, 255, 255, 0.85);
             background: rgba(0, 0, 0, 0.2); padding: 40px; 
             border-top: 1px solid rgba(241, 231, 192, 0.1);
             border-bottom: 1px solid rgba(241, 231, 192, 0.1);
-            position: relative;
         }
 
-        /* 以前のstrongの青色を廃止し、周囲と馴染ませる */
-        .message-box strong { color: rgba(255, 255, 255, 1); font-weight: 500; border-bottom: none; }
-.author {
-    margin-top: 40px;
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: rgba(241, 231, 192, 0.4); /* 控えめなゴールド */
-    text-align: center;
-}</style>
+        .message-box strong { color: #f1e7c0; font-weight: 500; }
+
+        .author {
+            margin-top: 40px; font-size: 11px; letter-spacing: 3px;
+            color: rgba(241, 231, 192, 0.4); text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -94,10 +90,17 @@
     <div id="result" class="result-area">
         <div id="message-content" class="message-box"></div>
     </div>
+    
     <div class="author">Created by SHIJIMI KEN</div>
 </div>
 
 <script>
+    // ページ読み込み時に今日の日付をセット（スマホ対策）
+    window.onload = function() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('birthdate').value = today;
+    };
+
     const starTraits = {
         "牡羊座": "真っ直ぐな情熱と、思い立ったらすぐ行動する瞬発力",
         "牡牛座": "五感で味わう心地よさを大切にする、丁寧な暮らしぶり",
@@ -141,6 +144,7 @@
         const date = new Date(dateInput);
         const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
 
+        // 数秘計算
         let s = (y + m + d).toString().split('').reduce((a, b) => a + parseInt(b), 0);
         while (s > 9 && ![11, 22, 33].includes(s)) {
             s = s.toString().split('').reduce((a, b) => a + parseInt(b), 0);
