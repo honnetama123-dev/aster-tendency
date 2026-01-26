@@ -21,17 +21,13 @@
         }
 
         .card { 
-            background: transparent; 
-            padding: 40px 20px;
-            width: 95%; max-width: 600px; text-align: center; 
-            border: none;
-            position: relative;
+            background: transparent; padding: 40px 20px;
+            width: 95%; max-width: 600px; text-align: center; border: none; position: relative;
         }
 
         h1 { 
             font-family: 'Cinzel', serif; font-size: 32px; letter-spacing: 12px; margin-bottom: 8px;
-            color: #f1e7c0; text-shadow: 0 0 15px rgba(241, 231, 192, 0.5);
-            text-transform: uppercase; font-weight: 400;
+            color: #f1e7c0; text-shadow: 0 0 15px rgba(241, 231, 192, 0.5); text-transform: uppercase;
         }
 
         .subtitle { 
@@ -39,47 +35,43 @@
             margin-bottom: 50px; text-transform: uppercase; opacity: 0.8;
         }
 
-        /* --- 改良ポイント：入力エリアをわかりやすく --- */
-        .input-section {
+        /* --- ここが重要：スマホで絶対見えるようにする設定 --- */
+        .input-box {
             margin-bottom: 35px;
-            display: inline-block;
-            width: 100%;
         }
 
-        .guide-text {
-            font-size: 13px;
+        .label-text {
+            display: block;
+            font-size: 14px;
             letter-spacing: 3px;
             color: #f1e7c0;
-            margin-bottom: 15px;
-            display: block;
-            font-weight: 500;
+            margin-bottom: 12px;
+            font-weight: bold;
         }
 
         input[type="date"] { 
-            background: rgba(255, 255, 255, 0.08); 
-            border: 1px solid rgba(241, 231, 192, 0.4);
+            background: rgba(255, 255, 255, 0.15); /* 少し濃くして目立たせる */
+            border: 2px solid rgba(241, 231, 192, 0.5); /* 枠線を太く */
             color: #ffffff; 
             padding: 15px; 
-            width: 80%; 
-            max-width: 280px;
+            width: 85%; 
+            max-width: 300px;
             font-size: 18px; 
-            border-radius: 4px; 
+            border-radius: 10px; /* 角を丸めて「押せる」感じを出す */
             outline: none; 
-            transition: 0.4s;
             font-family: 'Quicksand', sans-serif; 
             text-align: center;
-            /* スマホでタップした時のハイライトを抑える */
-            -webkit-tap-highlight-color: transparent;
+            /* iOS特有のグレーアウトを解除 */
+            -webkit-appearance: listbox;
         }
-
-        /* --------------------------------------- */
 
         button { 
             background: transparent;
             color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.6); 
             padding: 16px 60px; cursor: pointer; letter-spacing: 6px; 
-            font-size: 12px; font-weight: bold;
+            font-size: 13px; font-weight: bold;
             transition: all 0.5s; text-transform: uppercase;
+            border-radius: 5px;
         }
         button:hover { background: rgba(241, 231, 192, 0.15); border-color: #f1e7c0; }
 
@@ -89,14 +81,14 @@
         .message-box { 
             line-height: 2.5; font-size: 16px; 
             color: rgba(255, 255, 255, 0.85) !important; 
-            background: rgba(0, 0, 0, 0.25); 
-            padding: 40px; border-radius: 8px;
-            border: 1px solid rgba(241, 231, 192, 0.1);
+            background: rgba(0, 0, 0, 0.3); 
+            padding: 40px; border-radius: 15px;
+            border: 1px solid rgba(241, 231, 192, 0.2);
         }
 
         .author {
             margin-top: 60px; font-size: 12px; letter-spacing: 4px;
-            color: rgba(241, 231, 192, 0.4); text-align: center;
+            color: rgba(241, 231, 192, 0.5); text-align: center;
         }
     </style>
 </head>
@@ -106,8 +98,8 @@
     <h1>Astra Tendency</h1>
     <div class="subtitle">Insights for Personal Evolution</div>
     
-    <div class="input-section">
-        <label for="birthdate" class="guide-text">− 生年月日を選択 −</label>
+    <div class="input-box">
+        <span class="label-text">【 生年月日を選択 】</span>
         <input type="date" id="birthdate">
     </div>
 
@@ -121,6 +113,8 @@
 </div>
 
 <script>
+    // ページを読み込んだら、最初から「今日の日付」を入れておく
+    // これにより、スマホでも空っぽに見えなくなります
     window.onload = function() {
         const today = new Date().toISOString().split('T')[0];
         document.getElementById('birthdate').value = today;
@@ -165,18 +159,15 @@
     function analyze() {
         const dateInput = document.getElementById('birthdate').value;
         if (!dateInput) return;
-
         const date = new Date(dateInput);
         const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
-
         let s = (y + m + d).toString().split('').reduce((a, b) => a + parseInt(b), 0);
         while (s > 9 && ![11, 22, 33].includes(s)) {
             s = s.toString().split('').reduce((a, b) => a + parseInt(b), 0);
         }
-
         const zodiac = getZodiac(m, d);
         const trait = starTraits[zodiac];
         const msg = numMsgs[s];
-
         document.getElementById('message-content').innerHTML = `
-            貴方の内側には、<strong>${trait}</strong>という気
+            貴方の内側には、<strong>${trait}</strong>という気質が静かに、けれど確かに息づいています。<br><br>
+            その性質が、日々の暮らしの中で<strong>${msg}</strong>となって
