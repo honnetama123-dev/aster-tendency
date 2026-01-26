@@ -11,7 +11,7 @@
         body { 
             background: #020617 url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=2048') no-repeat center center fixed;
             background-size: cover;
-            color: rgba(255, 255, 255, 0.8); 
+            color: rgba(255, 255, 255, 0.85); 
             font-family: 'Quicksand', sans-serif;
             display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
         }
@@ -29,32 +29,33 @@
 
         h1 { 
             font-family: 'Cinzel', serif; font-size: 32px; letter-spacing: 12px; margin-bottom: 8px;
-            color: #f1e7c0; text-shadow: 0 0 15px rgba(241, 231, 192, 0.3);
+            color: #f1e7c0; text-shadow: 0 0 15px rgba(241, 231, 192, 0.4);
             text-transform: uppercase; font-weight: 400;
         }
 
         .subtitle { 
             font-size: 10px; letter-spacing: 6px; color: #f1e7c0; 
-            margin-bottom: 50px; text-transform: uppercase; opacity: 0.6;
+            margin-bottom: 50px; text-transform: uppercase; opacity: 0.7;
         }
 
-        /* --- 改良：ガイド文字を見やすく --- */
+        /* --- ここを修正：より「見やすく」 --- */
         .input-label {
-            font-family: 'Cinzel', serif; /* タイトルと同じフォントで統一感を */
-            font-size: 10px; 
-            letter-spacing: 7px; /* 間隔を広げて高級感を */
-            color: #f1e7c0;
+            font-family: 'Cinzel', serif;
+            font-size: 11px; /* 1px大きく */
+            letter-spacing: 6px;
+            color: #f1e7c0; /* 色をより鮮明に */
             margin-bottom: 18px; 
-            opacity: 0.8; /* 以前より少しだけ濃くして視認性アップ */
+            opacity: 1.0; /* 透明度をなくしてくっきり表示 */
             text-transform: uppercase;
             font-weight: 400;
-            text-shadow: 0 0 8px rgba(241, 231, 192, 0.3); /* ほんのり光らせて浮き立たせる */
+            /* 影を強くして、背景が宇宙でも文字を浮き上がらせる */
+            text-shadow: 0 0 10px rgba(241, 231, 192, 0.6), 0 0 2px rgba(0, 0, 0, 0.8);
         }
 
         input[type="date"] { 
-            background: rgba(255, 255, 255, 0.02); 
-            border: 1px solid rgba(241, 231, 192, 0.2);
-            color: rgba(255, 255, 255, 0.9); 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(241, 231, 192, 0.3); /* 枠も少しだけくっきり */
+            color: #ffffff; 
             padding: 12px; width: 80%; max-width: 260px;
             font-size: 16px; 
             border-radius: 0; outline: none;
@@ -67,79 +68,17 @@
         
         button { 
             margin-top: 40px; background: transparent;
-            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.3); 
+            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.4); 
             padding: 14px 50px; cursor: pointer; letter-spacing: 5px; 
             font-size: 11px; font-weight: 300;
             transition: 0.5s; text-transform: uppercase;
             border-radius: 0;
             -webkit-appearance: none;
         }
-        button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; }
+        button:hover { background: rgba(241, 231, 192, 0.15); border-color: #f1e7c0; }
 
         .result-area { margin-top: 50px; text-align: center; display: none; }
 
         .message-box { 
-            line-height: 2.6; font-size: 14px; 
-            color: rgba(255, 255, 255, 0.75); 
-            background: rgba(0, 0, 0, 0.15); 
-            padding: 40px; border-radius: 0;
-            border-top: 1px solid rgba(241, 231, 192, 0.1);
-            border-bottom: 1px solid rgba(241, 231, 192, 0.1);
-            font-weight: 300;
-        }
-
-        .author {
-            margin-top: 60px; font-size: 10px; letter-spacing: 3px;
-            color: rgba(241, 231, 192, 0.3); text-align: center;
-            font-weight: 300;
-        }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <h1>Astra Tendency</h1>
-    <div class="subtitle">Insights for Personal Evolution</div>
-    
-    <div class="input-label">Select Birthdate</div>
-    <input type="date" id="birthdate">
-    <br>
-    <button onclick="analyze()">Analyze</button>
-
-    <div id="result" class="result-area">
-        <div id="message-content" class="message-box"></div>
-    </div>
-    
-    <div class="author">Created by SHIJIMI KEN</div>
-</div>
-
-<script>
-    window.onload = function() {
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('birthdate').value = today;
-    };
-
-    const starTraits = { "牡羊座": "真っ直ぐな情熱と、思い立ったらすぐ行動する瞬発力", "牡牛座": "五感で味わう心地よさを大切にする、丁寧な暮らしぶり", "双子座": "好奇心が旺盛で、重苦しい空気をさらりと変える軽やかさ", "蟹座": "身近な人への深い慈しみと、場を温める包容力", "獅子座": "自分らしくあることを誇りとし、周囲に活力を与える存在感", "乙女座": "細部まで目が行き届く繊細さと、物事を整える几帳面さ", "天秤座": "全体の調和を読み取り、スマートに立ち回れるバランス感覚", "蠍座": "一つのことを深く突き詰め、本質を見抜こうとする洞察力", "射手座": "束縛を嫌い、常に広い世界を見つめる自由な精神", "山羊座": "着実に目標を達成していく、ストイックで誠実な歩み", "水瓶座": "常識に縛られない独創性と、誰に対してもフラットな視点", "魚座": "言葉にできない機微を感じ取り、優しく寄り添う感受性" };
-    const numMsgs = { 1: "「まずは自分が動いてみる」という潔い強さ", 2: "周囲の温度を察知し、さりげなく潤滑油になれる大人の配慮", 3: "日常の中に面白さを見つける天才的な遊び心", 4: "丁寧な仕事と約束を守る積み重ね、その揺るぎない安定感", 5: "変化を軽やかに乗りこなす、自由で軽快なフットワーク", 6: "淹れたてのコーヒーのように、場を温める責任感と配慮", 7: "一人の時間を贅沢に使える、流行に流されない本質的な視点", 8: "目標へ着実に進むタフさと、周囲も引き上げる懐の深さ", 9: "多くの経験から得た、全てを笑って流せる大人の余裕", 11: "理屈を超えて真実を突く、鋭くも繊細な直感", 22: "理想をただの夢に終わらせない、着実で力強い実行力", 33: "既成概念に囚われない、誰にも真似できない視点と愛" };
-
-    function getZodiac(month, day) {
-        const signs = ["山羊座","水瓶座","魚座","牡羊座","牡牛座","双子座","蟹座","獅子座","乙女座","天秤座","蠍座","射手座","山羊座"];
-        const bounds = [19, 18, 20, 19, 20, 21, 22, 22, 22, 23, 22, 21];
-        return day > bounds[month-1] ? signs[month] : signs[month-1];
-    }
-
-    function analyze() {
-        const dateInput = document.getElementById('birthdate').value;
-        if (!dateInput) return;
-        const date = new Date(dateInput);
-        const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
-        let s = (y + m + d).toString().split('').reduce((a, b) => a + parseInt(b), 0);
-        while (s > 9 && ![11, 22, 33].includes(s)) { s = s.toString().split('').reduce((a, b) => a + parseInt(b), 0); }
-        const zodiac = getZodiac(m, d);
-        document.getElementById('message-content').innerHTML = `貴方の内側には、<strong>${starTraits[zodiac]}</strong>という気質が静かに、けれど確かに息づいています。<br><br>その性質が、日々の暮らしの中で<strong>${numMsgs[s]}</strong>となって現れるとき、周囲や自分自身に心地よいリズムが生まれるようです。<br><br>ふとした瞬間に、この自分らしいエネルギーの巡りを感じてみてください。`;
-        document.getElementById('result').style.display = 'block';
-    }
-</script>
-
-</body>
-</html>
+            line-height: 2.6; font-size: 15px; 
+            color: rgba(255, 255,
