@@ -41,35 +41,31 @@
             margin-bottom: 50px; text-transform: uppercase; opacity: 0.8;
         }
 
-        /* ガイド文字のデザインを主題(h1など)のスタイルに統一 */
+        /* ガイド文字を極限まで細く、透明感をアップ */
         .input-label {
-            font-family: 'Cinzel', serif; /* タイトルと同じ高貴なフォント */
-            font-size: 11px; 
+            font-size: 10px; 
             letter-spacing: 5px; 
             color: #f1e7c0;
             margin-bottom: 15px; 
-            opacity: 0.7; 
+            opacity: 0.5; /* さらに透明にして背景に馴染ませる */
             text-transform: uppercase;
+            font-weight: 300;
         }
 
         input[type="date"] { 
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid rgba(241, 231, 192, 0.3);
+            background: rgba(255, 255, 255, 0.03); /* 以前の薄さに戻しました */
+            border: 1px solid rgba(241, 231, 192, 0.2); /* 枠線を極細に戻しました */
             color: #fff; padding: 15px; width: 85%; max-width: 280px;
-            font-size: 17px; border-radius: 4px; outline: none; transition: 0.4s;
+            font-size: 17px; border-radius: 2px; outline: none; transition: 0.4s;
             font-family: 'Quicksand', sans-serif; text-align: center;
         }
         
-        input[type="date"]:focus {
-            border-color: #f1e7c0;
-            background: rgba(255, 255, 255, 0.1);
-        }
-
         button { 
             margin-top: 35px; background: transparent;
-            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.5); 
+            color: #f1e7c0; border: 1px solid rgba(241, 231, 192, 0.4); 
             padding: 16px 60px; cursor: pointer; letter-spacing: 6px; 
-            font-size: 12px; font-weight: bold;
+            font-size: 11px; /* 少し小さくして繊細に */
+            font-weight: 500;
             transition: all 0.5s; text-transform: uppercase;
         }
         button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; }
@@ -78,50 +74,9 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         .message-box { 
-            line-height: 2.5; font-size: 16px; 
-            color: rgba(255, 255, 255, 0.85) !important; 
-            background: rgba(0, 0, 0, 0.2); 
+            line-height: 2.6; font-size: 15px; 
+            color: rgba(255, 255, 255, 0.8) !important; 
+            background: rgba(0, 0, 0, 0.15); 
             padding: 40px; 
-            border-radius: 12px;
-            border: 1px solid rgba(241, 231, 192, 0.1);
-        }
-
-        .message-box strong { color: rgba(255, 255, 255, 0.9) !important; font-weight: 500; }
-
-        .author {
-            margin-top: 60px; font-size: 12px; letter-spacing: 4px;
-            color: rgba(241, 231, 192, 0.4); text-align: center;
-        }
-    </style>
-</head>
-<body>
-
-<div class="card">
-    <h1>Astra Tendency</h1>
-    <div class="subtitle">Insights for Personal Evolution</div>
-    
-    <div class="input-label">Select Birthdate</div>
-    <input type="date" id="birthdate">
-    <br>
-    <button onclick="analyze()">Analyze</button>
-
-    <div id="result" class="result-area">
-        <div id="message-content" class="message-box"></div>
-    </div>
-    
-    <div class="author">Created by SHIJIMI KEN</div>
-</div>
-
-<script>
-    window.onload = function() {
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('birthdate').value = today;
-    };
-
-    const starTraits = {
-        "牡羊座": "真っ直ぐな情熱と、思い立ったらすぐ行動する瞬発力",
-        "牡牛座": "五感で味わう心地よさを大切にする、丁寧な暮らしぶり",
-        "双子座": "好奇心が旺盛で、重苦しい空気をさらりと変える軽やかさ",
-        "蟹座": "身近な人への深い慈しみと、場を温める包容力",
-        "獅子座": "自分らしくあることを誇りとし、周囲に活力を与える存在感",
-        "乙女座": "細部まで目が行き届く繊細
+            border-radius: 0; /* 角丸をなくしてよりシャープに */
+            border-top: 1px solid rgba(2
