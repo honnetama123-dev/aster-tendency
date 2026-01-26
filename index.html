@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
     <style>
         body { 
-            /* 背景画像をより明るく、宇宙を強調 */
             background: #020617 url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&q=80&w=2048') no-repeat center center fixed;
             background-size: cover;
             color: rgba(255, 255, 255, 0.85); 
@@ -15,17 +14,14 @@
             display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
         }
 
-        /* ここで背景の「透け具合」を調整しています */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* グラデーションの透明度を 0.7 から 0.4 へ下げて、宇宙をよく見せています */
             background: radial-gradient(circle at center, rgba(30, 58, 138, 0.05) 0%, rgba(2, 6, 23, 0.4) 100%);
             pointer-events: none; z-index: -1;
         }
 
         .card { 
             background: transparent; 
-            backdrop-filter: none;
             padding: 40px 20px;
             width: 95%; max-width: 600px; text-align: center; 
             border: none;
@@ -45,12 +41,27 @@
             margin-bottom: 50px; text-transform: uppercase; opacity: 0.8;
         }
 
+        /* 入力欄の上のガイド文字 */
+        .input-label {
+            font-size: 10px; letter-spacing: 4px; color: #f1e7c0;
+            margin-bottom: 12px; opacity: 0.6; text-transform: uppercase;
+        }
+
         input[type="date"] { 
-            /* 入力欄の背景もさらに薄くして、宇宙を透かせています */
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff; padding: 15px; width: 80%; max-width: 280px;
-            font-size: 17px; border-radius: 4px; outline: none; transition: 0.4s;
+            /* 枠線を少し明るくし、角を少し丸めて「ボタン感」を出しました */
+            background: rgba(255, 255, 255, 0.07); 
+            border: 1px solid rgba(241, 231, 192, 0.3);
+            color: #fff; padding: 15px; width: 85%; max-width: 280px;
+            font-size: 17px; border-radius: 8px; outline: none; transition: 0.4s;
             font-family: 'Quicksand', sans-serif; text-align: center;
+            /* iPhone特有のデフォルトデザインをリセット */
+            -webkit-appearance: none;
+        }
+        
+        input[type="date"]:focus {
+            border-color: #f1e7c0;
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 0 15px rgba(241, 231, 192, 0.2);
         }
 
         button { 
@@ -59,6 +70,7 @@
             padding: 16px 60px; cursor: pointer; letter-spacing: 6px; 
             font-size: 12px; font-weight: bold;
             transition: all 0.5s; text-transform: uppercase;
+            border-radius: 4px;
         }
         button:hover { background: rgba(241, 231, 192, 0.1); border-color: #f1e7c0; }
 
@@ -68,10 +80,10 @@
         .message-box { 
             line-height: 2.5; font-size: 16px; 
             color: rgba(255, 255, 255, 0.85) !important; 
-            /* 黒い影を極限まで薄くし、宇宙が透けて見えるように */
-            background: rgba(0, 0, 0, 0.15); 
+            background: rgba(0, 0, 0, 0.2); 
             padding: 40px; 
-            border-radius: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(241, 231, 192, 0.1);
         }
 
         .message-box strong { color: rgba(255, 255, 255, 0.9) !important; font-weight: 500; }
@@ -88,6 +100,7 @@
     <h1>Astra Tendency</h1>
     <div class="subtitle">Insights for Personal Evolution</div>
     
+    <div class="input-label">Select Birthdate</div>
     <input type="date" id="birthdate">
     <br>
     <button onclick="analyze()">Analyze</button>
@@ -109,4 +122,25 @@
         "牡羊座": "真っ直ぐな情熱と、思い立ったらすぐ行動する瞬発力",
         "牡牛座": "五感で味わう心地よさを大切にする、丁寧な暮らしぶり",
         "双子座": "好奇心が旺盛で、重苦しい空気をさらりと変える軽やかさ",
-        "蟹座": "身近な人への深い慈
+        "蟹座": "身近な人への深い慈しみと、場を温める包容力",
+        "獅子座": "自分らしくあることを誇りとし、周囲に活力を与える存在感",
+        "乙女座": "細部まで目が行き届く繊細さと、物事を整える几帳面さ",
+        "天秤座": "全体の調和を読み取り、スマートに立ち回れるバランス感覚",
+        "蠍座": "一つのことを深く突き詰め、本質を見抜こうとする洞察力",
+        "射手座": "束縛を嫌い、常に広い世界を見つめる自由な精神",
+        "山羊座": "着実に目標を達成していく、ストイックで誠実な歩み",
+        "水瓶座": "常識に縛られない独創性と、誰に対してもフラットな視点",
+        "魚座": "言葉にできない機微を感じ取り、優しく寄り添う感受性"
+    };
+
+    const numMsgs = {
+        1: "「まずは自分が動いてみる」という潔い強さ",
+        2: "周囲の温度を察知し、さりげなく潤滑油になれる大人の配慮",
+        3: "日常の中に面白さを見つける天才的な遊び心",
+        4: "丁寧な仕事と約束を守る積み重ね、その揺るぎない安定感",
+        5: "変化を軽やかに乗りこなす、自由で軽快なフットワーク",
+        6: "淹れたてのコーヒーのように、場を温める責任感と配慮",
+        7: "一人の時間を贅沢に使える、流行に流されない本質的な視点",
+        8: "目標へ着実に進むタフさと、周囲も引き上げる懐の深さ",
+        9: "多くの経験から得た、全てを笑って流せる大人の余裕",
+        11: "理屈を超えて真実を突く、鋭くも繊
