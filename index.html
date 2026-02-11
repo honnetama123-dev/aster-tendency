@@ -48,7 +48,19 @@
             border-top: 1px solid rgba(241, 231, 192, 0.15); border-bottom: 1px solid rgba(241, 231, 192, 0.15);
             font-weight: 400; text-align: left;
         }
-        /* 名前クレジットの部分 */
+
+        /* 追加：境界日（カスプ）の注釈スタイル */
+        .cusp-note {
+            margin-top: 30px;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: rgba(241, 231, 192, 0.4);
+            font-style: italic;
+            line-height: 2;
+            text-align: center;
+            animation: fadeIn 4s ease;
+        }
+
         .author { margin-top: 80px; font-size: 12px; letter-spacing: 4px; color: rgba(241, 231, 192, 0.6); text-align: center; }
     </style>
 </head>
@@ -62,9 +74,10 @@
     <button onclick="analyze()">Analyze</button>
     <div id="result" class="result-area">
         <div id="message-content" class="message-box"></div>
+        <!-- 追加：注釈を表示するエリア -->
+        <div id="cusp-area" class="cusp-note"></div>
     </div>
-    <div class="author">Created by SHIJIMI KEN
-</div>
+    <div class="author">Created by SHIJIMI KEN</div>
 
 <script>
     window.onload = function() {
@@ -73,6 +86,7 @@
     };
 
     const fortuneData = {
+        // ...（既存のデータはそのまま保持）
         "1-牡羊座": "あなたは、自分で決めて動くことが得意なタイプです。 迷うよりも、まず一歩踏み出すほうが自然で、誰かの判断を待つより、自分の感覚を信じて選ぶことが多いでしょう。 自分で決断し、行動に移したとき、物事はスムーズに進みやすくなります。",
         "1-牡牛座": "自分のペースを大切にしながら、確実に形にしていく力を持っています。 一度「やる」と決めたら、周りに流されず最後までやり遂げる芯の強さがあるでしょう。 納得できるものを選び取り、自分の力で積み上げていくことに喜びを感じるタイプです。",
         "1-双子座": "新しい刺激をキャッチして、軽やかに動き出すのが得意です。 面白いと思ったことには即座に反応し、独自の視点で周りに伝えていく力があります。 一つの場所にとどまらず、興味の向くままに世界を広げていくことで、あなたの良さが引き立ちます。",
@@ -100,7 +114,7 @@
         "3-牡羊座": "明るいエネルギーに溢れ、新しい楽しみを見つける天才です。 面白いと思ったことには迷わず飛び込み、そのワクワクを周りにも伝染させます。 あなたの無邪気な挑戦が、停滞していた空気を一気に変えていくでしょう。",
         "3-牡牛座": "五感で味わう楽しみを大切にし、自分なりの形にするのが得意です。 美味しいものや美しいものを通じて、日常を豊かに彩る才能があります。 穏やかな笑顔で自分の「好き」を楽しむ姿が、周囲を和ませる魅力になります。",
         "3-双子座": "知的好奇心が旺盛で、面白い情報をキャッチしては発信できる人です。 おしゃべりや文章を通じて、多才な自分を表現することを楽しめるでしょう。 フットワークの軽さとウィットに富んだ会話が、多くの人を惹きつけます。",
-        "3-蟹座": "親しい仲間や家族と一緒に、笑い合える時間を何より大切にします。 感情表現が豊かで、自分の喜びを素直に周りと共有できる人です。 あなたの温かなユーモアが、身近な場所を明るく照らす太陽のようになります。",
+        "3-蟹座": "親しい仲間や家族と一緒に、笑い合える時間を何より大切にします。 感情表現が豊かで、自分の喜びを素直に周りと共有できる人です。 あなたの温かなユーアが、身近な場所を明るく照らす太陽のようになります。",
         "3-獅子座": "自分が楽しんでいる姿を人に見せることで、華やかに輝くタイプです。 遊び心を持って物事に取り組、ドラマチックに表現することに長けています。 あなたが人生を謳歌している姿そのものが、周りに元気を与える演出となります。",
         "3-乙女座": "工夫を凝らして、日常の細かな部分をクリエイティブに整える人です。 ただ楽しむだけでなく、そこに自分なりのこだわりや美学を詰め込みます。 小さな「面白い」を丁寧に見つける感性が、暮らしを鮮やかに彩ります。",
         "3-天秤座": "センスが良く、洗練された形で楽しみや喜びを表現できる人です。 誰とでも軽やかに交流し、社交的な場を楽しく盛り上げるのが得意でしょう。 あなたの周りにはいつも心地よい笑い声が溢れ、調和の取れた賑やかさが生まれます。",
@@ -235,6 +249,14 @@
         return d > bounds[m-1] ? signs[m] : signs[m-1];
     }
 
+    /* 追加：境界日（カスプ）かどうかを判定する関数 */
+    function isCusp(m, d) {
+        const bounds = [19, 18, 20, 19, 20, 21, 22, 22, 22, 23, 22, 21];
+        const target = bounds[m-1];
+        // 境界日当日、またはその前後1日をカスプ期間とする
+        return (d >= target - 1 && d <= target + 1);
+    }
+
     function analyze() {
         const dateInput = document.getElementById('birthdate').value;
         if (!dateInput) return;
@@ -250,6 +272,16 @@
             貴方の魂の数字「${num}」と、空の星座「${zodiac}」が交わる場所。<br><br>
             ${message}
         `;
+
+        /* 追加：境界日ユーザーへのメッセージ表示処理 */
+        const cuspArea = document.getElementById('cusp-area');
+        if (isCusp(m, d)) {
+            cuspArea.innerHTML = `境界の刻に生を受け、響きに差異を感じる方は<br>一日の刻を前後させ、もう一つの星の囁きをお確かめください`;
+            cuspArea.style.display = 'block';
+        } else {
+            cuspArea.style.display = 'none';
+        }
+
         document.getElementById('result').style.display = 'block';
         
         setTimeout(() => {
